@@ -18,7 +18,7 @@ handler = WebhookHandler(os.environ.get("CHANNEL_SECRET"))
 def callback():
 
     if request.method == "GET":
-        return "Hra~~~~~{}".format(os.environ.get("GOOGLE_MAP_KEY"))
+        return "123Hra~~~~~{}".format(os.environ.get("GOOGLE_MAP_KEY"))
     if request.method == "POST":
         signature = request.headers["X-Line-Signature"]
         body = request.get_data(as_text=True)
