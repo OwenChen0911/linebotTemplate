@@ -9,6 +9,10 @@
         },
         "CHANNEL_SECRET": {
             "description": "LINE bot Channel secret",
+            "required":  true
+        },
+         "GOOGLE_MAP_KEY": {
+            "description": "GoogleMap Key",
             "required":  false
         }
     }
