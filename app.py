@@ -18,7 +18,7 @@ handler = WebhookHandler(os.environ.get("CHANNEL_SECRET"))
 def callback():
 
     if request.method == "GET":
-        return "Hra~~~~~{}".format(os.environ.get("CHANNEL_ACCESS_TOKEN"))
+        return "Hra~~~~~{}".format(os.environ.get("GOOGLE_MAP_KEY"))
     if request.method == "POST":
         signature = request.headers["X-Line-Signature"]
         body = request.get_data(as_text=True)
@@ -36,5 +36,5 @@ def handle_message(event):
     get_message = event.message.text
 
     # Send To Line
-    reply = TextSendMessage(text=f"YaY : {get_message}")
+    reply = TextSendMessage(text=f"YoY : {get_message}")
     line_bot_api.reply_message(event.reply_token, reply)
