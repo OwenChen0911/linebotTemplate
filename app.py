@@ -18,7 +18,7 @@ handler = WebhookHandler(os.environ.get("CHANNEL_SECRET"))
 def callback():
 
     if request.method == "GET":
-        return "Hra~~~~~{}".format(handler)
+        return "Hra~~~~~{}".format(os.environ.get("CHANNEL_ACCESS_TOKEN"))
     if request.method == "POST":
         signature = request.headers["X-Line-Signature"]
         body = request.get_data(as_text=True)
