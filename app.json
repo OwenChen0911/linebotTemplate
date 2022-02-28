@@ -9,7 +9,7 @@
         },
         "CHANNEL_SECRET": {
             "description": "LINE bot Channel secret",
-            "required":  true
+            "required":  false
         }
     }
 }
