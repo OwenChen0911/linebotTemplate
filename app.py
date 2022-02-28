@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 line_bot_api = LineBotApi(os.environ.get("CHANNEL_ACCESS_TOKEN"))
 handler = WebhookHandler(os.environ.get("CHANNEL_SECRET"))
-
+mKey = os.environ.get("GOOGLE_MAP_KEY")
 
 def getWeather(dist):
     URL = "https://www.google.com/search?lr=lang_en&ie=UTF-8&q=天氣"
@@ -34,6 +34,54 @@ def getWeather(dist):
         print('err : ',ex)
         return '阿........'
 
+def getRestaurant(address):
+    #address  =  '高雄市三民區大昌二路152號'
+    s = "https://maps.googleapis.com/maps/api/geocode/json?key={}&address={}&sensor=false".format(mKey,address)
+    addreq = requests.get(s)
+    addDic = addreq.json()
+    lat = addDic['results'][0]['geometry']['location']['lat']
+    lng = addDic['results'][0]['geometry']['location']['lng']
+    
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?language=zh-TW&key={}&location={},{}&rankby=distance&type=restaurant".format(mKey,lat,lng)
+    payload={}
+    headers = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+    data = json.loads(response.text)
+    goodRes = []
+    for i in data['results']:
+        try:
+            if i['rating'] > 3.9:
+                print('rate : ',i['rating'])
+                goodRes.append(i)
+        except:
+            print('')
+
+
+    if len(goodRes)<0:
+        print('No one')
+
+    restaurant = goodRes[2]
+
+    if restaurant.get('photos') is None:
+        print('No image')
+    else:
+        photo_ref = restaurant['photos'][0]['photo_reference']
+        photo_width = restaurant['photos'][0]['width']
+        thumbnail_image_url = 'https://maps.googleapis.com/maps/api/place/photo?key{}&photoreference={}&maxwidth={}'\
+        .format(mKey,photo_ref,photo_width)
+        
+       
+
+    rating = "無" if restaurant.get('rating') is None else restaurant['rating']
+    address = "None" if restaurant.get('vicinity') is None else restaurant['vicinity']
+    details = "Google Map 評分 : {}\n地址 : {}".format(rating,address)
+
+    map_url = "https://www.google.com/maps/search/?api=1&query={lat},{long}&query_place_id={place_id}".format(
+        lat = restaurant['geometry']['location']['lat'], long = restaurant['geometry']['location']['lng'],place_id=restaurant['place_id'])
+    
+    
+    return restaurant,details,map_url,thumbnail_image_url
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -53,10 +101,36 @@ def callback():
         return "OK"
 
 
+def processFood(event):
+    restaurant,details ,map_url,thumbnail_image_url  = getRestaurant(event.message.text.replace('美食',''))
+    print('food')          
+            
+    replyData.append(TemplateSendMessage(
+        alt_text= restaurant['name'],
+        template=ButtonsTemplate(
+            thumbnail_image_url = thumbnail_image_url,
+            title = restaurant['name'],
+            text = details,
+            actions = [
+                URITemplateAction(
+                    label="查看地圖",
+                    uri = map_url
+                    ),
+                                ]
+                            )
+                        )
+                    )
+    return replyData
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     get_message = event.message.text
+    if "美食" in event.message.text:
+        replyData = []
+        reoktData.append(processFood(event))
+        line_bot_api.reply_message(event.reply_token,replyData )
+    else:
 	
 		# Send To Line
-    reply = TextSendMessage(text=f"YoY : {get_message} " + getWeather('台中市龍井區'))
-    line_bot_api.reply_message(event.reply_token, reply)
+        reply = TextSendMessage(text=f"YoY : {get_message} " + getWeather('台中市龍井區'))
+        line_bot_api.reply_message(event.reply_token, reply)
