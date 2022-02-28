@@ -127,10 +127,11 @@ def handle_message(event):
     get_message = event.message.text
     if "美食" in event.message.text:
         replyData = []
-        reoktData.append(processFood(event))
+        replyData.append(processFood(event))
         line_bot_api.reply_message(event.reply_token,replyData )
+    elif "天氣" in event.message.text:
+        data = getWeather(event.message.text.replace('天氣',''))         
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=data))
     else:
-	
-		# Send To Line
-        reply = TextSendMessage(text=f"YoY : {get_message} " + getWeather('台中市龍井區'))
+	reply = TextSendMessage(text=f"YoY : {get_message} " + getWeather('台中市龍井區'))
         line_bot_api.reply_message(event.reply_token, reply)
