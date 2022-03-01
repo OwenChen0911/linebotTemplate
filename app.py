@@ -154,6 +154,7 @@ def handle_message(event):
         data = getWeather(event.message.text.replace('天氣',''))         
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=data))
     elif "付款" in event.message.text:
+        url = 'https://linepayment0911.herokuapp.com/reserve'
         payUrl = response = requests.request("GET", url)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=payUrl)  )
     elif "評論" in event.message.text:
