@@ -89,7 +89,7 @@ def getRestaurant(address):
 def callback():
 
     if request.method == "GET":
-        return "123sHra~~~~~")
+        return "123sHra~~~~~"
     if request.method == "POST":
         signature = request.headers["X-Line-Signature"]
         body = request.get_data(as_text=True)
