@@ -89,7 +89,7 @@ def getRestaurant(address):
 def callback():
 
     if request.method == "GET":
-        return "123sHra~~~~~{}".format(getWeather('台中市龍井區'))
+        return "123sHra~~~~~")
     if request.method == "POST":
         signature = request.headers["X-Line-Signature"]
         body = request.get_data(as_text=True)
@@ -134,6 +134,8 @@ def handle_message(event):
         data = getWeather(event.message.text.replace('天氣',''))         
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=data))
     else:
-        reply = TextSendMessage(text=f"YoY : {get_message}")
-        line_bot_api.reply_message(event.reply_token, reply)
+        rules = '機器人小規則\n※查美食 : 美食大昌一路15號\n※查天氣 : 天氣高雄市三民區'
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=rules) )
+        #reply = TextSendMessage(text=f"YoY : {get_message}")
+        #line_bot_api.reply_message(event.reply_token, reply)
         
