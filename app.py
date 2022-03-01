@@ -22,7 +22,7 @@ gmaps = googlemaps.Client(key=mKey)
 def getPaymentInfo():
     url = "https://sandbox-api-pay.line.me/v2/payments/request"
 
-    payload = "{\r\n    \"amount\": 100,\r\n    \"productImageUrl\": \"http://placehold.it/84x84\",\r\n    \"confirmUrl\": \"127:0.0.1:8000/\",\r\n    \"productName\": \"Buy Bot\",\r\n    \"orderId\": \"15615156\",\r\n    \"currency\": \"TWD\"\r\n}"
+    payload = "{\r\n    \"amount\": 100,\r\n    \"productImageUrl\": \"http://placehold.it/84x84\",\r\n    \"confirmUrl\": \"127:0.0.1:8880/\",\r\n    \"productName\": \"Buy Bot\",\r\n    \"orderId\": \"15615156\",\r\n    \"currency\": \"TWD\"\r\n}"
     headers = {
   'X-LINE-ChannelID': '1656931714',
   'X-LINE-ChannelSecret': 'e8b70140c11946b1b56476e9633e01bd',
