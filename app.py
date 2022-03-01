@@ -156,7 +156,7 @@ def handle_message(event):
     elif "付款" in event.message.text:
         url = 'https://linepayment0911.herokuapp.com/reserve'
         payUrl = response = requests.request("GET", url)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=payUrl)  )
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=payUrl.text)  )
     elif "評論" in event.message.text:
         #payUrl = getPaymentInfo()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='ㄜ.....還沒有寫好')  )
