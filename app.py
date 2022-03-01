@@ -106,7 +106,7 @@ def processFood(event):
     restaurant,details ,map_url,thumbnail_image_url  = getRestaurant(event.message.text.replace('美食',''))
     print('food')          
             
-    replyData.append(TemplateSendMessage(
+    return TemplateSendMessage(
         alt_text= restaurant['name'],
         template=ButtonsTemplate(
             thumbnail_image_url = thumbnail_image_url,
@@ -117,11 +117,11 @@ def processFood(event):
                     label="查看地圖",
                     uri = map_url
                     ),
-                                ]
-                            )
-                        )
-                    )
-    return replyData
+                ]
+            )
+    )
+                    
+    
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -129,10 +129,11 @@ def handle_message(event):
     if "美食" in event.message.text:
         replyData = []
         replyData.append(processFood(event))
-        line_bot_api.reply_message(event.reply_token,replyData )
+        line_bot_api.reply_message(event.reply_token,replyData)
     elif "天氣" in event.message.text:
         data = getWeather(event.message.text.replace('天氣',''))         
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=data))
     else:
-	reply = TextSendMessage(text=f"YoY : {get_message}")
+        reply = TextSendMessage(text=f"YoY : {get_message}")
         line_bot_api.reply_message(event.reply_token, reply)
+        
