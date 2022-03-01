@@ -7,8 +7,8 @@ from flask import Flask, abort, request
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
-
-
+from linebot.models import *
+import random,googlemaps,requests,json
 
 from google_weather import get_weather_data
 
@@ -17,6 +17,7 @@ app = Flask(__name__)
 line_bot_api = LineBotApi(os.environ.get("CHANNEL_ACCESS_TOKEN"))
 handler = WebhookHandler(os.environ.get("CHANNEL_SECRET"))
 mKey = os.environ.get("GOOGLE_MAP_KEY")
+gmaps = googlemaps.Client(key=mKey)
 
 def getWeather(dist):
     URL = "https://www.google.com/search?lr=lang_en&ie=UTF-8&q=天氣"
@@ -133,5 +134,5 @@ def handle_message(event):
         data = getWeather(event.message.text.replace('天氣',''))         
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=data))
     else:
-	reply = TextSendMessage(text=f"YoY : {get_message} " + getWeather('台中市龍井區'))
+	reply = TextSendMessage(text=f"YoY : {get_message}")
         line_bot_api.reply_message(event.reply_token, reply)
