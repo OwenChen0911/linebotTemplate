@@ -19,6 +19,26 @@ handler = WebhookHandler(os.environ.get("CHANNEL_SECRET"))
 mKey = os.environ.get("GOOGLE_MAP_KEY")
 gmaps = googlemaps.Client(key=mKey)
 
+def getPaymentInfo():
+    url = "https://sandbox-api-pay.line.me/v2/payments/request"
+
+    payload = "{\r\n    \"amount\": 100,\r\n    \"productImageUrl\": \"http://placehold.it/84x84\",\r\n    \"confirmUrl\": \"127:0.0.1:8000/\",\r\n    \"productName\": \"Buy Bot\",\r\n    \"orderId\": \"15615156\",\r\n    \"currency\": \"TWD\"\r\n}"
+    headers = {
+  'X-LINE-ChannelID': '1656931714',
+  'X-LINE-ChannelSecret': 'e8b70140c11946b1b56476e9633e01bd',
+  'Content-Type': 'application/json;charset=UTF-8'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    reJson = response.json()
+
+    print(reJson['returnMessage'])
+    print(reJson['info']['paymentUrl']['web'])
+    return reJson['info']['paymentUrl']['web']
+
+
+
 def getWeather(dist):
     URL = "https://www.google.com/search?lr=lang_en&ie=UTF-8&q=天氣"
     try:
@@ -133,8 +153,14 @@ def handle_message(event):
     elif "天氣" in event.message.text:
         data = getWeather(event.message.text.replace('天氣',''))         
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=data))
+    elif "付款" in event.message.text:
+        payUrl = getPaymentInfo()
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=payUrl)  )
+    elif "評論" in event.message.text:
+        payUrl = getPaymentInfo()
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='ㄜ.....還沒有寫好')  )
     else:
-        rules = '機器人小規則\n※查美食 : 美食大昌一路15號\n※查天氣 : 天氣高雄市三民區'
+        rules = '機器人小規則\n※查美食 : 美食大昌一路15號\n※查天氣 : 天氣高雄市三民區\n※付款\n※評論'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=rules) )
         #reply = TextSendMessage(text=f"YoY : {get_message}")
         #line_bot_api.reply_message(event.reply_token, reply)
