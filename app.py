@@ -40,7 +40,7 @@ def getPaymentInfo():
 
 
 def getWeather(dist):
-    URL = "https://www.google.com/search?lr=lang_en&ie=UTF-8&q=天氣"
+    URL = "https://www.google.com/search?lang_zh-CN&ie=UTF-8&q=天氣"
     try:
         data = get_weather_data(URL+ dist)
         mDict={}
