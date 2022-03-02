@@ -160,7 +160,8 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=payUrl.text)  )
     elif "評論" in event.message.text:
         #payUrl = getPaymentInfo()
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='ㄜ.....還沒有寫好')  )
+        comment = '探探Tourism 問卷調查 \n {}'.format('https://docs.google.com/forms/u/0/d/11U1bFxMLEufwiBBxjLCBs_g7hJVCevkMMJA_MQsCw6w/viewform?edit_requested=true')
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=comment)  )
     else:
         rules = '機器人小規則\n※查美食 : 美食大昌一路15號\n※查天氣 : 天氣高雄市三民區\n※付款\n※評論'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=rules) )
