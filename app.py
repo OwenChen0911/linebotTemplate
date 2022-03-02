@@ -162,6 +162,8 @@ def handle_message(event):
     
     if isinstance(event, MessageEvent):
         print("MessageEvent")
+    elif isinstance(event, MessageEvent):
+        print("PostbackEvent")
         
     get_message = event.message.text
     if "美食" in event.message.text:
