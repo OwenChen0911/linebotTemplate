@@ -74,10 +74,10 @@ if __name__ == "__main__":
     print("Now:", data["dayhour"])
     print(f"Temperature now: {data['temp_now']}°C")
     print("Description:", data['weather_now'])
-    print("Precipitation:", data["precipitation"])
-    print("Humidity:", data["humidity"])
-    print("Wind:", data["wind"])
-    print("Next days:")
+    #print("Precipitation:", data["precipitation"])
+    #print("Humidity:", data["humidity"])
+    #print("Wind:", data["wind"])
+    #print("Next days:")
     mDict['region'] = data["region"]
     mDict['Now'] = data["dayhour"]
     mDict['Temperature'] = data["temp_now"]

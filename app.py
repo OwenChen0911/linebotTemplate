@@ -49,6 +49,7 @@ def getWeather(dist):
         mDict['Temperature'] = data["temp_now"]
         mDict['Description'] = data["weather_now"]
         print(data)
+        print(f"Temperature now: {data['temp_now']}°C")
         return '地區 :　{reg} - {mNow}\n溫度 : {temp}\n{note}'.format(reg = mDict['region'],mNow = mDict['Now'],
                                                          temp = mDict['Temperature'],note = mDict['Description'])
     except Exception as ex:
