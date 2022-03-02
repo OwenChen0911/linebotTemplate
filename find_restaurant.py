@@ -46,7 +46,7 @@ else:
     thumbnail_image_url = 'https://maps.googleapis.com/maps/api/place/photo?key={}&photoreference={}&maxwidth={}'\
     .format(mKey,photo_ref,photo_width)
     st = restaurant['photos'][0]['html_attributions'][0]
-    print(thumbnail_image_url)
+    print('Imgae : ',thumbnail_image_url)
 
 
 
