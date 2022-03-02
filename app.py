@@ -42,7 +42,7 @@ def getPaymentInfo():
 def getWeather(dist):
     URL = "https://www.google.com/search?lang_zh-CN&ie=UTF-8&q=天氣"
     try:
-        data = get_weather_data(URL+ dist)
+        data = get_weather_data(URL+ dist+" 攝氏")
         mDict={}
         mDict['region'] = data["region"]
         mDict['Now'] = data["dayhour"]

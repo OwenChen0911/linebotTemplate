@@ -53,7 +53,7 @@ def get_weather_data(url):
 
 if __name__ == "__main__":
     URL = "https://www.google.com/search?lr=lang_en&ie=UTF-8&q=weather"
-    URL = "https://www.google.com/search?lr=lang_zh-CN&ie=UTF-8&q=天氣"
+    URL = "https://www.google.com/search?q=天氣"
     import argparse
     parser = argparse.ArgumentParser(description="Quick Script for Extracting Weather data using Google Weather")
     parser.add_argument("region", nargs="?", help="""Region to get weather for, must be available region.
