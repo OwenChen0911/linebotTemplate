@@ -200,9 +200,20 @@ def handle_message(event):
             answer = event.postback.data[2:]
             print('PostbackEvent answer :',answer)
             if answer =="否":
-                replyData = []        
-                replyData.append(processFood(event,'restaurant','美食'))            
+                replyData = []
+                findType=''
+                if "美食" in answer[3:]:
+                    findType = 'restaurant'
+                elif "住宿" in answer[3:]:
+                    findType = 'lodging'
+                else:
+                    findType = 'tourist_attraction'
+                print("pick again : {} # {}\n\n".format(answer[3:],findType))
+                replyData.append(processFood(event,findType,answer[3:]))            
                 line_bot_api.reply_message(event.reply_token,replyData)
+            else:
+                print("do nothing\n\n")
+                pass
                 
                 
            
