@@ -157,7 +157,7 @@ def processFood(event,findType):
                     
     
 #https://developers.google.com/maps/documentation/places/web-service/supported_types
-@handler.add(MessageEvent, message=TextMessage,PostbackEvent)
+#@handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     
     if isinstance(event, MessageEvent):
