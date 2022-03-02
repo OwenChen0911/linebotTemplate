@@ -81,5 +81,5 @@ if __name__ == "__main__":
     mDict['Temperature'] = data["temp_now"]
     mDict['Description'] = data["weather_now"]
 
-    
+    print(mDict)
     
