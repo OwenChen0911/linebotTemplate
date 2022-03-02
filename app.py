@@ -85,7 +85,7 @@ def getRestaurant(address,findType):
         print('No one')
 
     restaurant = goodRes[2]
-
+    thumbnail_image_url = ''
     if restaurant.get('photos') is None:
         print('No image')
     else:
@@ -133,7 +133,7 @@ def processFood(event,findType):
     return TemplateSendMessage(
         alt_text= restaurant['name'],
         template=ButtonsTemplate(
-            thumbnail_image_url = thumbnail_image_url,
+            thumbnail_image_url = None,
             title = restaurant['name'],
             text = details,
             actions = [
