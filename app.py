@@ -129,7 +129,7 @@ def processFood(event,findType):
     restaurant,details ,map_url,thumbnail_image_url  = getRestaurant(event.message.text.replace('美食',''),findType)
     print('food')
     #thumbnail_image_url = 'https://www.google.com/search?rlz=1C1CHBD_zh-TW&tbs=lf:1,lf_ui:9&tbm=lcl&sxsrf=APq-WBvP9hiuov0mR5H8AD7xCQOd9ZiElA:1646187463802&q=%E9%BB%91%E5%BA%97&rflfq=1&num=10#rlfi=hd:;si:509673220156312110,l,Cgbpu5HlupdaCCIG6buR5bqXkgELbm9vZGxlX3Nob3CaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVUnRNM0V6YmpoM1JSQUKqAQ4QASoKIgbpu5HlupcoRQ,y,eJvyoaOJJa4;mv:[[22.6966268,120.3058832],[22.601616399999997,120.2911106]]'
-            
+            #ButtonsTemplate
     return TemplateSendMessage(
         alt_text= restaurant['name'],
         template=ButtonsTemplate(
@@ -157,7 +157,7 @@ def processFood(event,findType):
                     
     
 #https://developers.google.com/maps/documentation/places/web-service/supported_types
-@handler.add(MessageEvent, message=TextMessage)
+@handler.add(MessageEvent, message=TextMessage,PostbackEvent)
 def handle_message(event):
     
     if isinstance(event, MessageEvent):
