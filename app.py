@@ -203,9 +203,9 @@ def handle_message(event):
             if "否" in answer:
                 replyData = []
                 findType=''
-                if "美食" in answer[3:]:
+                if "美食" in answer:
                     findType = 'restaurant'
-                elif "住宿" in answer[3:]:
+                elif "住宿" in answer:
                     findType = 'lodging'
                 else:
                     findType = 'tourist_attraction'
