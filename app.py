@@ -75,7 +75,7 @@ def getRestaurant(address,findType):
     for i in data['results']:
         try:
             if i['rating'] > 3.9 and i.get('photos') is not None:
-                print('rate : ',i['rating'])
+                #print('rate : ',i['rating'])
                 goodRes.append(i)
         except:
             print('')
@@ -125,8 +125,8 @@ def callback():
         return "OK"
 
 
-def processFood(event,findType,replaceword):
-    restaurant,details ,map_url,thumbnail_image_url  = getRestaurant(event.message.text.replace(replaceword,''),findType)
+def processFood(msg,findType,replaceword):
+    restaurant,details ,map_url,thumbnail_image_url  = getRestaurant(msg.replace(replaceword,''),findType)
     
     #thumbnail_image_url = 'https://www.google.com/search?rlz=1C1CHBD_zh-TW&tbs=lf:1,lf_ui:9&tbm=lcl&sxsrf=APq-WBvP9hiuov0mR5H8AD7xCQOd9ZiElA:1646187463802&q=%E9%BB%91%E5%BA%97&rflfq=1&num=10#rlfi=hd:;si:509673220156312110,l,Cgbpu5HlupdaCCIG6buR5bqXkgELbm9vZGxlX3Nob3CaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVUnRNM0V6YmpoM1JSQUKqAQ4QASoKIgbpu5HlupcoRQ,y,eJvyoaOJJa4;mv:[[22.6966268,120.3058832],[22.601616399999997,120.2911106]]'
             #ButtonsTemplate
@@ -144,12 +144,12 @@ def processFood(event,findType,replaceword):
                  PostbackTemplateAction(
                                         label='是',
                                         text='是',
-                                        data='A&是'+replaceword
+                                        data='A&是'+msg
                                     ),
                 PostbackTemplateAction(
                                         label='否',
                                         text='否',
-                                        data='A&否'+replaceword
+                                        data='A&否'+msg
                                     )
                 ]
             )
@@ -170,15 +170,15 @@ def handle_message(event):
         get_message = event.message.text
         if "美食" in event.message.text:
             replyData = []        
-            replyData.append(processFood(event,'restaurant','美食'))
+            replyData.append(processFood(event.message.text,'restaurant','美食'))
             line_bot_api.reply_message(event.reply_token,replyData)
         elif "住宿" in event.message.text:
             replyData = []        
-            replyData.append(processFood(event,'lodging','住宿'))           
+            replyData.append(processFood(event.message.text,'lodging','住宿'))           
             line_bot_api.reply_message(event.reply_token,replyData)
         elif "景點" in event.message.text:
             replyData = []        
-            replyData.append(processFood(event,'tourist_attraction','景點'))        
+            replyData.append(processFood(event.message.text,'tourist_attraction','景點'))        
             line_bot_api.reply_message(event.reply_token,replyData)        
         elif "天氣" in event.message.text:
             data = getWeather(event.message.text.replace('天氣',''))         
