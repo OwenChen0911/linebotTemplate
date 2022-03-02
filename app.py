@@ -134,7 +134,7 @@ def processFood(event,findType):
         alt_text= restaurant['name'],
         template=ButtonsTemplate(
             thumbnail_image_url = thumbnail_image_url,
-            title = restaurant['name'],
+            title = "這是您想要的 : " + restaurant['name'] + "?",
             text = details,
             actions = [
                 URITemplateAction(
@@ -159,7 +159,7 @@ def processFood(event,findType):
 #https://developers.google.com/maps/documentation/places/web-service/supported_types
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    print("## event : ",isinstance(event))
+    
     if isinstance(event, MessageEvent):
         print("MessageEvent")
         
