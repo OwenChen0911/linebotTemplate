@@ -37,7 +37,7 @@ def getPaymentInfo():
     print(reJson['info']['paymentUrl']['web'])
     return reJson['info']['paymentUrl']['web']
 
-
+#1
 
 def getWeather(dist):
     URL = "https://www.google.com/search?lang_zh-CN&ie=UTF-8&q=天氣"
