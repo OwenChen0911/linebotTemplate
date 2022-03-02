@@ -74,7 +74,7 @@ def getRestaurant(address,findType):
     goodRes = []
     for i in data['results']:
         try:
-            if i['rating'] > 3.9:
+            if i['rating'] > 3.9 and i.get('photos') is not None:
                 print('rate : ',i['rating'])
                 goodRes.append(i)
         except:
