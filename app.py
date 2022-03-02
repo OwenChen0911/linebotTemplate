@@ -132,7 +132,7 @@ def processFood(event,findType):
             
     return TemplateSendMessage(
         alt_text= restaurant['name'],
-        template=ButtonsTemplate(
+        template=ConfirmTemplate(
             thumbnail_image_url = thumbnail_image_url,
             title = "這是您想要的 : " + restaurant['name'] + "?",
             text = details,
@@ -142,12 +142,12 @@ def processFood(event,findType):
                     uri = map_url
                     ),
                  PostbackTemplateAction(
-                                        label='是否滿意',
+                                        label='是',
                                         text='是',
                                         data='A&是'
                                     ),
                 PostbackTemplateAction(
-                                        label='是否滿意',
+                                        label='否',
                                         text='否',
                                         data='A&否'
                                     )
