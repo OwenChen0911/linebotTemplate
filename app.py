@@ -201,7 +201,7 @@ def handle_message(event):
             print('PostbackEvent answer :',answer)
             if answer =="否":
                 replyData = []        
-                replyData.append(processFood(event,'restaurant','美食'))            
+                replyData.append(processFood(event,'restaurant','美食'))            
                 line_bot_api.reply_message(event.reply_token,replyData)
                 
                 
