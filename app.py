@@ -141,6 +141,16 @@ def processFood(event,findType):
                     label="查看地圖",
                     uri = map_url
                     ),
+                 PostbackTemplateAction(
+                                        label='是否滿意',
+                                        text='是',
+                                        data='A&是'
+                                    ),
+                PostbackTemplateAction(
+                                        label='是否滿意',
+                                        text='否',
+                                        data='A&否'
+                                    )
                 ]
             )
     )
@@ -149,32 +159,23 @@ def processFood(event,findType):
 #https://developers.google.com/maps/documentation/places/web-service/supported_types
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    print("## event : ",isinstance(event))
+    if isinstance(event, MessageEvent):
+        print("MessageEvent")
+        
     get_message = event.message.text
     if "美食" in event.message.text:
-        replyData = []
-        while(len(replyData)<3):
-            try:
-                replyData.append(processFood(event,'restaurant'))
-            except:
-                pass
+        replyData = []        
+        replyData.append(processFood(event,'restaurant'))            
         line_bot_api.reply_message(event.reply_token,replyData)
     elif "住宿" in event.message.text:
-        replyData = []
-        while(len(replyData)<3):
-            try:
-                replyData.append(processFood(event,'lodging'))
-            except:
-                pass
+        replyData = []        
+        replyData.append(processFood(event,'lodging'))           
         line_bot_api.reply_message(event.reply_token,replyData)
     elif "景點" in event.message.text:
-        replyData = []
-        while(len(replyData)<3):
-            try:
-                replyData.append(processFood(event,'tourist_attraction'))
-            except:
-                pass
-        line_bot_api.reply_message(event.reply_token,replyData)
-        
+        replyData = []        
+        replyData.append(processFood(event,'tourist_attraction'))        
+        line_bot_api.reply_message(event.reply_token,replyData)        
     elif "天氣" in event.message.text:
         data = getWeather(event.message.text.replace('天氣',''))         
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=data))
@@ -189,6 +190,5 @@ def handle_message(event):
     else:
         rules = '機器人小規則\n※查美食 : 美食大昌一路15號\n※查天氣 : 天氣高雄市三民區\n※付款\n※評論\n※查景點 : 景點台中市大肚區\n※查飯店 : 住宿高雄市三民區'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=rules) )
-        #reply = TextSendMessage(text=f"YoY : {get_message}")
-        #line_bot_api.reply_message(event.reply_token, reply)
+       
         
