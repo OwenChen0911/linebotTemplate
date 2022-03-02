@@ -84,7 +84,7 @@ def getRestaurant(address,findType):
     if len(goodRes)<0:
         print('No one')
 
-    restaurant = goodRes[2]
+    restaurant = goodRes[random.randint(0,len(goodRes))]
     thumbnail_image_url = ''
     if restaurant.get('photos') is None:
         print('No image')
