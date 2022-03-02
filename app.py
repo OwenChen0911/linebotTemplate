@@ -133,7 +133,7 @@ def processFood(event,findType):
     return TemplateSendMessage(
         alt_text= restaurant['name'],
         template=ButtonsTemplate(
-            thumbnail_image_url = None,
+            thumbnail_image_url = thumbnail_image_url,
             title = restaurant['name'],
             text = details,
             actions = [
@@ -175,7 +175,7 @@ def handle_message(event):
         comment = '探探Tourism 問卷調查 \n {}'.format('https://docs.google.com/forms/u/0/d/11U1bFxMLEufwiBBxjLCBs_g7hJVCevkMMJA_MQsCw6w/viewform?edit_requested=true')
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=comment)  )
     else:
-        rules = '機器人小規則\n※查美食 : 美食大昌一路15號\n※查天氣 : 天氣高雄市三民區\n※付款\n※評論'
+        rules = '機器人小規則\n※查美食 : 美食大昌一路15號\n※查天氣 : 天氣高雄市三民區\n※付款\n※評論\n※查景點 : 景點台中市大肚區\n※查飯店 : 住宿高雄市三民區'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=rules) )
         #reply = TextSendMessage(text=f"YoY : {get_message}")
         #line_bot_api.reply_message(event.reply_token, reply)
