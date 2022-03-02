@@ -153,19 +153,13 @@ def handle_message(event):
     if "美食" in event.message.text:
         replyData = []
         replyData.append(processFood(event,'restaurant'))
-        replyData.append(processFood(event,'restaurant'))
-        replyData.append(processFood(event,'restaurant'))
         line_bot_api.reply_message(event.reply_token,replyData)
     elif "住宿" in event.message.text:
         replyData = []
         replyData.append(processFood(event,'lodging'))
-        replyData.append(processFood(event,'lodging'))
-        replyData.append(processFood(event,'lodging'))
         line_bot_api.reply_message(event.reply_token,replyData)
     elif "景點" in event.message.text:
         replyData = []
-        replyData.append(processFood(event,'tourist_attraction'))
-        replyData.append(processFood(event,'tourist_attraction'))
         replyData.append(processFood(event,'tourist_attraction'))
         line_bot_api.reply_message(event.reply_token,replyData)
         
