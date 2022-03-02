@@ -196,13 +196,7 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=rules) )
     elif isinstance(event, PostbackEvent):
         print("PostbackEvent!!!")
-        if event.postback.data[0:1] == "A":
-            answer = event.postback.data[2:]
-            print('PostbackEvent answer :',answer)
-            if answer =="否":
-                replyData = []        
-                replyData.append(processFood(event,'restaurant','美食'))            
-                line_bot_api.reply_message(event.reply_token,replyData)
+        
                 
                 
            
