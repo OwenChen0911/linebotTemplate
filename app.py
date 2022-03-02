@@ -203,16 +203,21 @@ def handle_message(event):
             if "否" in answer:
                 replyData = []
                 findType=''
+                replaceWord = ''
                 if "美食" in answer:
                     findType = 'restaurant'
+                    replaceWord = '美食'
                 elif "住宿" in answer:
                     findType = 'lodging'
+                    replaceWord = '住宿'
                 else:
                     findType = 'tourist_attraction'
+                    replaceWord = '景點'
+                    
                 usermessage = answer.replace('A&否','')
                 usermessage = usermessage.replace('否','')
                 print("pick again : {} # {}\n\n".format(usermessage,findType))
-                replyData.append(processFood(usermessage,findType,answer[3:]))            
+                replyData.append(processFood(usermessage,findType,replaceWord))            
                 line_bot_api.reply_message(event.reply_token,replyData)
             else:
                 print("do nothing\n\n")
