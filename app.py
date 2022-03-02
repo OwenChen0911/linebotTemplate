@@ -133,7 +133,7 @@ def processFood(event,findType):
     return TemplateSendMessage(
         alt_text= restaurant['name'],
         template=ButtonsTemplate(
-            #thumbnail_image_url = thumbnail_image_url,
+            thumbnail_image_url = thumbnail_image_url,
             title = restaurant['name'],
             text = details,
             actions = [
