@@ -156,8 +156,12 @@ def processFood(event,findType):
     )
                     
     
+@handler.add(PostbackEvent)
+def handle_message_confirm(event):
+    print("PostbackEvent~~~~")
+
 #https://developers.google.com/maps/documentation/places/web-service/supported_types
-#@handler.add(MessageEvent, message=TextMessage)
+@handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     
     if isinstance(event, MessageEvent):
