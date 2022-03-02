@@ -133,7 +133,7 @@ def processFood(event,findType):
     return TemplateSendMessage(
         alt_text= restaurant['name'],
         template=ButtonsTemplate(
-            thumbnail_image_url = thumbnail_image_url,
+            #thumbnail_image_url = thumbnail_image_url,
             title = restaurant['name'],
             text = details,
             actions = [
@@ -146,21 +146,21 @@ def processFood(event,findType):
     )
                     
     
-
+#https://developers.google.com/maps/documentation/places/web-service/supported_types
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     get_message = event.message.text
     if "美食" in event.message.text:
         replyData = []
-        replyData.append(processFood(event),'restaurant')
+        replyData.append(processFood(event,'restaurant'))
         line_bot_api.reply_message(event.reply_token,replyData)
     elif "住宿" in event.message.text:
         replyData = []
-        replyData.append(processFood(event),'lodging')
+        replyData.append(processFood(event,'lodging'))
         line_bot_api.reply_message(event.reply_token,replyData)
     elif "景點" in event.message.text:
         replyData = []
-        replyData.append(processFood(event),'tourist_attraction')
+        replyData.append(processFood(event,'tourist_attraction'))
         line_bot_api.reply_message(event.reply_token,replyData)
         
     elif "天氣" in event.message.text:
