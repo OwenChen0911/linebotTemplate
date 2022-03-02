@@ -48,7 +48,7 @@ def getWeather(dist):
         mDict['Now'] = data["dayhour"]
         mDict['Temperature'] = data["temp_now"]
         mDict['Description'] = data["weather_now"]
-        print(mDict)
+        print(data)
         return '地區 :　{reg} - {mNow}\n溫度 : {temp}\n{note}'.format(reg = mDict['region'],mNow = mDict['Now'],
                                                          temp = mDict['Temperature'],note = mDict['Description'])
     except Exception as ex:
@@ -91,6 +91,7 @@ def getRestaurant(address):
         photo_width = restaurant['photos'][0]['width']
         thumbnail_image_url = 'https://maps.googleapis.com/maps/api/place/photo?key={}&photoreference={}&maxwidth={}'\
         .format(mKey,photo_ref,photo_width)
+        print(thumbnail_image_url)
         
        
 

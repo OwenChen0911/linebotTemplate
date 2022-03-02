@@ -3,9 +3,10 @@ from bs4 import BeautifulSoup as bs
 import requests
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36"
+USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36"
 # US english
 LANGUAGE = "en-US,en;q=0.5"
-LANGUAGE = "zh-TW,zh;q=0.5"
+LANGUAGE = "zh-TW,zh;q=0.9"
 
 def get_weather_data(url):
     session = requests.Session()
@@ -52,6 +53,7 @@ def get_weather_data(url):
 
 if __name__ == "__main__":
     URL = "https://www.google.com/search?lr=lang_en&ie=UTF-8&q=weather"
+    URL = "https://www.google.com/search?lr=lang_zh-CN&ie=UTF-8&q=天氣"
     import argparse
     parser = argparse.ArgumentParser(description="Quick Script for Extracting Weather data using Google Weather")
     parser.add_argument("region", nargs="?", help="""Region to get weather for, must be available region.
@@ -59,7 +61,7 @@ if __name__ == "__main__":
     # parse arguments
     args = parser.parse_args()
     region = args.region
-    print(args)
+    #print(args)
     if region:
         region = region.replace(" ", "+")
         URL += f"+{region}"
