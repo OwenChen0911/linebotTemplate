@@ -192,14 +192,15 @@ def handle_message(event):
             comment = '探探Tourism 問卷調查 \n {}'.format('https://docs.google.com/forms/u/0/d/11U1bFxMLEufwiBBxjLCBs_g7hJVCevkMMJA_MQsCw6w/viewform?edit_requested=true')
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=comment)  )
         else:
-            rules = '機器人小規則\n※查美食 : 美食大昌一路15號\n※查天氣 : 天氣高雄市三民區\n※付款\n※評論\n※查景點 : 景點台中市大肚區\n※查飯店 : 住宿高雄市三民區'
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=rules) )
+            if "是" not in event.message.text:
+                rules = '機器人小規則\n※查美食 : 美食大昌一路15號\n※查天氣 : 天氣高雄市三民區\n※付款\n※評論\n※查景點 : 景點台中市大肚區\n※查飯店 : 住宿高雄市三民區'
+                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=rules) )
     elif isinstance(event, PostbackEvent):
         print("PostbackEvent!!!")
         if event.postback.data[0:1] == "A":
             answer = event.postback.data[2:]
             print('PostbackEvent answer :',answer)
-            if answer =="否":
+            if "否" in answer:
                 replyData = []
                 findType=''
                 if "美食" in answer[3:]:
