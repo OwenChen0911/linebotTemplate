@@ -84,7 +84,7 @@ def getRestaurant(address,findType):
     if len(goodRes)<0:
         print('No one')
 
-    restaurant = goodRes[random.randint(0,len(goodRes))]
+    restaurant = goodRes[random.randint(0,len(goodRes)-1)]
     thumbnail_image_url = ''
     if restaurant.get('photos') is None:
         print('No image')
@@ -153,13 +153,19 @@ def handle_message(event):
     if "美食" in event.message.text:
         replyData = []
         replyData.append(processFood(event,'restaurant'))
+        replyData.append(processFood(event,'restaurant'))
+        replyData.append(processFood(event,'restaurant'))
         line_bot_api.reply_message(event.reply_token,replyData)
     elif "住宿" in event.message.text:
         replyData = []
         replyData.append(processFood(event,'lodging'))
+        replyData.append(processFood(event,'lodging'))
+        replyData.append(processFood(event,'lodging'))
         line_bot_api.reply_message(event.reply_token,replyData)
     elif "景點" in event.message.text:
         replyData = []
+        replyData.append(processFood(event,'tourist_attraction'))
+        replyData.append(processFood(event,'tourist_attraction'))
         replyData.append(processFood(event,'tourist_attraction'))
         line_bot_api.reply_message(event.reply_token,replyData)
         
