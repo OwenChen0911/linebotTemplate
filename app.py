@@ -127,7 +127,7 @@ def callback():
 
 def processFood(event,findType,replaceword):
     restaurant,details ,map_url,thumbnail_image_url  = getRestaurant(event.message.text.replace(replaceword,''),findType)
-    print('food')
+    
     #thumbnail_image_url = 'https://www.google.com/search?rlz=1C1CHBD_zh-TW&tbs=lf:1,lf_ui:9&tbm=lcl&sxsrf=APq-WBvP9hiuov0mR5H8AD7xCQOd9ZiElA:1646187463802&q=%E9%BB%91%E5%BA%97&rflfq=1&num=10#rlfi=hd:;si:509673220156312110,l,Cgbpu5HlupdaCCIG6buR5bqXkgELbm9vZGxlX3Nob3CaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVUnRNM0V6YmpoM1JSQUKqAQ4QASoKIgbpu5HlupcoRQ,y,eJvyoaOJJa4;mv:[[22.6966268,120.3058832],[22.601616399999997,120.2911106]]'
             #ButtonsTemplate
     return TemplateSendMessage(
@@ -170,7 +170,7 @@ def handle_message(event):
         get_message = event.message.text
         if "美食" in event.message.text:
             replyData = []        
-            replyData.append(processFood(event,'restaurant','美食'))            
+            replyData.append(processFood(event,'restaurant','美食'))
             line_bot_api.reply_message(event.reply_token,replyData)
         elif "住宿" in event.message.text:
             replyData = []        
@@ -196,7 +196,13 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=rules) )
     elif isinstance(event, PostbackEvent):
         print("PostbackEvent!!!")
-        
+        if event.postback.data[0:1] == "A":
+            answer = event.postback.data[2:]
+            print('PostbackEvent answer :',answer)
+            if answer =="否":
+                replyData = []        
+                replyData.append(processFood(event,'restaurant','美食'))            
+                line_bot_api.reply_message(event.reply_token,replyData)
                 
                 
            
