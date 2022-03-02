@@ -209,7 +209,8 @@ def handle_message(event):
                     findType = 'lodging'
                 else:
                     findType = 'tourist_attraction'
-                usermessage = event.postback.data.replace('A&否','')
+                usermessage = answer.replace('A&否','')
+                usermessage = usermessage.replace('否','')
                 print("pick again : {} # {}\n\n".format(usermessage,findType))
                 replyData.append(processFood(usermessage,findType,answer[3:]))            
                 line_bot_api.reply_message(event.reply_token,replyData)
