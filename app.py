@@ -56,7 +56,8 @@ def getWeather(dist):
         print('err : ',ex)
         return '阿........'
 
-def getRestaurant(address):
+#tourist_attraction 景點 / restaurant  /  lodging
+def getRestaurant(address,findType):
     #address  =  '高雄市三民區大昌二路152號'
     s = "https://maps.googleapis.com/maps/api/geocode/json?key={}&address={}&sensor=false".format(mKey,address)
     addreq = requests.get(s)
@@ -64,7 +65,7 @@ def getRestaurant(address):
     lat = addDic['results'][0]['geometry']['location']['lat']
     lng = addDic['results'][0]['geometry']['location']['lng']
     
-    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?language=zh-TW&key={}&location={},{}&rankby=distance&type=restaurant".format(mKey,lat,lng)
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?language=zh-TW&key={}&location={},{}&rankby=distance&type={}".format(mKey,lat,lng,findType)
     payload={}
     headers = {}
 
@@ -124,8 +125,8 @@ def callback():
         return "OK"
 
 
-def processFood(event):
-    restaurant,details ,map_url,thumbnail_image_url  = getRestaurant(event.message.text.replace('美食',''))
+def processFood(event,findType):
+    restaurant,details ,map_url,thumbnail_image_url  = getRestaurant(event.message.text.replace('美食',''),findType)
     print('food')
     #thumbnail_image_url = 'https://www.google.com/search?rlz=1C1CHBD_zh-TW&tbs=lf:1,lf_ui:9&tbm=lcl&sxsrf=APq-WBvP9hiuov0mR5H8AD7xCQOd9ZiElA:1646187463802&q=%E9%BB%91%E5%BA%97&rflfq=1&num=10#rlfi=hd:;si:509673220156312110,l,Cgbpu5HlupdaCCIG6buR5bqXkgELbm9vZGxlX3Nob3CaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVUnRNM0V6YmpoM1JSQUKqAQ4QASoKIgbpu5HlupcoRQ,y,eJvyoaOJJa4;mv:[[22.6966268,120.3058832],[22.601616399999997,120.2911106]]'
             
@@ -151,8 +152,17 @@ def handle_message(event):
     get_message = event.message.text
     if "美食" in event.message.text:
         replyData = []
-        replyData.append(processFood(event))
+        replyData.append(processFood(event),'restaurant')
         line_bot_api.reply_message(event.reply_token,replyData)
+    elif "住宿" in event.message.text:
+        replyData = []
+        replyData.append(processFood(event),'lodging')
+        line_bot_api.reply_message(event.reply_token,replyData)
+    elif "景點" in event.message.text:
+        replyData = []
+        replyData.append(processFood(event),'tourist_attraction')
+        line_bot_api.reply_message(event.reply_token,replyData)
+        
     elif "天氣" in event.message.text:
         data = getWeather(event.message.text.replace('天氣',''))         
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=data))
